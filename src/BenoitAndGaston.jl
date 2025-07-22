@@ -1,7 +1,7 @@
-module JuliaCon2024
+module BenoitAndGaston
 
 using Colors: colormap
-using Images: save
+using PNGFiles: save
 
 function escape(x, c=x; depth=100)
     for i in 1:depth
@@ -31,11 +31,6 @@ function descend(c)
         end
     end
     return c
-end
-
-Base.@ccallable function julia_main()::Cint
-    save("a.png", julia(range(-1, 1, 800), range(-1, 1, 600), descend(rand(Complex{Float64}))))
-    return 0
 end
 
 export descend, julia, mandel

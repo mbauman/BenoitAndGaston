@@ -1,9 +1,8 @@
-using JuliaCon2024: descend, julia
+using BenoitAndGaston: descend, julia
 
 using Dash
-using Images: save
+using PNGFiles: save
 using Base64: base64encode
-using FileIO: Stream, @format_str
 
 app = dash()
 
@@ -18,7 +17,7 @@ callback!(app, [Output("loc", "children"), Output("img", "src")], Input("button"
     c = descend(randn(Complex{Float64}))
     img = julia(range(-1,1,800), range(-1,1,600), c)
     buf = IOBuffer()
-    save(Stream{format"PNG"}(buf), img)
+    save(buf, img)
     seekstart(buf)
     return (string(c),
             "data:image/png;base64," * base64encode(buf))
